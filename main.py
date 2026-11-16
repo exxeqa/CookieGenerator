@@ -4,19 +4,22 @@ from Encypter import encrypt_menu
 
 alph = "abcdefghijklmnopqrstuvwxyz"
 
-statistic = {
-    "purchases": 0,
-    "likes": 0,
-    "chats": 0,
-    "password": ""
-}
+def stat_res():
+    global statistic
+    statistic = {
+        "purchases": 0,
+        "likes": 0,
+        "chats": 0,
+        "password": ""
+    }
 
 def random_activity():
     global statistic
+    stat_res()
     password = ""
-    statistic["purchases"] += random.randint(0, 15)
-    statistic["likes"] += random.randint(0, 150)
-    statistic["chats"] += random.randint(0, 15)
+    statistic["purchases"] += random.randint(0, 95)
+    statistic["likes"] += random.randint(0, 250)
+    statistic["chats"] += random.randint(0, 55)
     for i in range(random.randint(8, 16)):
         password += "".join(random.choice(alph))
     statistic["password"] = password
@@ -28,7 +31,7 @@ def random_activity():
 def start():
     while True:
         try:
-            choose = int(input(f"choose mode\n1.Random activity\n2.Cookie encrypt\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
+            choose = int(input(f"choose mode\n1.Random activity\n2.Crypted stat -> Cookie\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
             if choose == 1:
                 random_activity()
                 continue

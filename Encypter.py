@@ -2,6 +2,7 @@ encrypted_password = ""
 
 def encrypt_password(crypt_password):
     global encrypted_password
+    encrypted_password = ""
     alph = "abcdefghijklmnopqrstuvwxyz"
     for i in crypt_password:
         letter = alph.index(i)
@@ -23,7 +24,7 @@ def encrypt(cookie):
     password = encrypt_password(encrypt_cookie[3])
     statistic["password"] = password
     with open("decryptedCookie_stats.txt", "w") as file:
-        file.write(statistic)
+        file.write(str(statistic))
 
 def encrypt_menu():
     while True:
