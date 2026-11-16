@@ -1,5 +1,5 @@
 import random
-import time
+from CookieCrypt import crypt
 
 alph = "abcdefghijklmnopqrstuvwxyz"
 
@@ -21,16 +21,19 @@ def random_activity():
     statistic["password"] = password
     with open("SessionStatistic.txt", "w") as f:
         f.write(str(statistic))
+    crypt(statistic)
+    print("Cookie created")
 
 def start():
     while True:
         try:
-            choose = int(input(f"choose mode\n1.Random activity\n2.Real activity"))
+            choose = int(input(f"choose mode\n1.Random activity\n2.Cookie"))
             if choose == 1:
                 random_activity()
-                break
+                continue
             elif choose == 2:
-                break
+                with open("Cookie.txt", "r") as f:
+                    print(f.read())
             else:
                 print("choose must be 1 or 2")
                 continue

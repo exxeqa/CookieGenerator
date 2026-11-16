@@ -5,7 +5,6 @@ with open("SessionStatistic.txt") as file:
 
 cookie = ""
 
-
 def crypt(statistic):
     global cookie
     crypted_password = ""
@@ -23,6 +22,5 @@ def crypt(statistic):
         crypted_password += alph[(letter + 8) % len(alph)]
     cookie += str(crypted_password)
     cookie += "___"
-    print(cookie)
-
-crypt(stats)
+    with open("Cookie.txt", "w") as file:
+        file.write(cookie)
