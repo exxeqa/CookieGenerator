@@ -1,12 +1,9 @@
-import ast
-
-with open("SessionStatistic.txt") as file:
-    stats = ast.literal_eval(file.read())
-
 cookie = ""
 
 def crypt(statistic):
     global cookie
+    with open("Cookie.txt", "w") as file:
+        pass
     crypted_password = ""
     password = statistic["password"]
     del statistic["password"]
@@ -24,3 +21,4 @@ def crypt(statistic):
     cookie += "___"
     with open("Cookie.txt", "w") as file:
         file.write(cookie)
+    cookie = ""
