@@ -1,16 +1,41 @@
-# This is a sample Python script.
+import random
+import time
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+alph = "abcdefghijklmnopqrstuvwxyz"
 
+statistic = {
+    "purchases": 0,
+    "likes": 0,
+    "chats": 0,
+    "password": ""
+}
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def random_activity():
+    global statistic
+    password = ""
+    statistic["purchases"] += random.randint(0, 15)
+    statistic["likes"] += random.randint(0, 150)
+    statistic["chats"] += random.randint(0, 15)
+    for i in range(random.randint(8, 16)):
+        password += "".join(random.choice(alph))
+    statistic["password"] = password
+    with open("SessionStatistic.txt", "w") as f:
+        f.write(str(statistic))
 
+def start():
+    while True:
+        try:
+            choose = int(input(f"choose mode\n1.Random activity\n2.Real activity"))
+            if choose == 1:
+                random_activity()
+                break
+            elif choose == 2:
+                break
+            else:
+                print("choose must be 1 or 2")
+                continue
+        except ValueError:
+            print("Enter a number!")
+            continue
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+start()
