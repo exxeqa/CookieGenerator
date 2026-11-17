@@ -13,9 +13,19 @@ def stat_res():
         "password": ""
     }
 
+def CookieFileReset():
+    with open("Cookie.txt", "w") as f:
+        pass
+
+def SessionFileReset():
+    with open("Cookie.txt", "w") as f:
+        pass
+
 def random_activity_gen(generations):
     global statistic
     stat_res()
+    CookieFileReset()
+    SessionFileReset()
     for gen in range(generations):
         password = ""
         statistic["purchases"] += random.randint(0, 95)
@@ -27,6 +37,7 @@ def random_activity_gen(generations):
         with open("SessionStatistic.txt", "a") as f:
             f.write(str(f"{statistic}\n"))
         crypt(statistic)
+        stat_res()
         print("Cookie created")
 
 def activity_gen_menu():

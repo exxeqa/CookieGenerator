@@ -2,7 +2,6 @@ cookie = ""
 
 def crypt(statistic):
     global cookie
-
     crypted_password = ""
     password = statistic["password"]
     del statistic["password"]
