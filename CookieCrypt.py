@@ -2,8 +2,7 @@ cookie = ""
 
 def crypt(statistic):
     global cookie
-    with open("Cookie.txt", "w") as file:
-        pass
+
     crypted_password = ""
     password = statistic["password"]
     del statistic["password"]
@@ -19,6 +18,6 @@ def crypt(statistic):
         crypted_password += alph[(letter + 8) % len(alph)]
     cookie += str(crypted_password)
     cookie += "___"
-    with open("Cookie.txt", "w") as file:
-        file.write(cookie)
+    with open("Cookie.txt", "a") as file:
+        file.write(f"{cookie}\n")
     cookie = ""

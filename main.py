@@ -13,27 +13,50 @@ def stat_res():
         "password": ""
     }
 
-def random_activity():
+def random_activity_gen(generations):
     global statistic
     stat_res()
-    password = ""
-    statistic["purchases"] += random.randint(0, 95)
-    statistic["likes"] += random.randint(0, 250)
-    statistic["chats"] += random.randint(0, 55)
-    for i in range(random.randint(8, 16)):
-        password += "".join(random.choice(alph))
-    statistic["password"] = password
-    with open("SessionStatistic.txt", "w") as f:
-        f.write(str(statistic))
-    crypt(statistic)
-    print("Cookie created")
+    for gen in range(generations):
+        password = ""
+        statistic["purchases"] += random.randint(0, 95)
+        statistic["likes"] += random.randint(0, 250)
+        statistic["chats"] += random.randint(0, 55)
+        for i in range(random.randint(8, 16)):
+            password += "".join(random.choice(alph))
+        statistic["password"] = password
+        with open("SessionStatistic.txt", "a") as f:
+            f.write(str(f"{statistic}\n"))
+        crypt(statistic)
+        print("Cookie created")
+
+def activity_gen_menu():
+    while True:
+        try:
+            choose = int(input("Choose mode\n1.Single generation\n2.Multi active generations"))
+        except ValueError:
+            print("Enter a number!")
+            continue
+        if choose == 1:
+            amount = 1
+            random_activity_gen(amount)
+            break
+        if choose == 2:
+            while True:
+                try:
+                    amount = int(input("Generations amount"))
+                except ValueError:
+                    print("Enter a number!")
+                    continue
+                random_activity_gen(amount)
+                break
+        break
 
 def start():
     while True:
         try:
-            choose = int(input(f"choose mode\n1.Random activity\n2.Crypted stat -> Cookie\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
+            choose = int(input(f"choose mode\n1.Activity gen menu\n2.Crypted stat -> Cookie\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
             if choose == 1:
-                random_activity()
+                activity_gen_menu()
                 continue
             elif choose == 2:
                 with open("Cookie.txt", "r") as f:
@@ -45,7 +68,7 @@ def start():
                 with open("decryptedCookie_stats.txt", "r") as f:
                     print(f.read())
             else:
-                print("choose must be 1 - 3")
+                print("choose must be 1 - 6")
                 continue
         except ValueError:
             print("Enter a number!")
