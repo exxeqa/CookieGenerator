@@ -18,7 +18,7 @@ def CookieFileReset():
         pass
 
 def SessionFileReset():
-    with open("Cookie.txt", "w") as f:
+    with open("SessionStatistic.txt", "w") as f:
         pass
 
 def random_activity_gen(generations):
