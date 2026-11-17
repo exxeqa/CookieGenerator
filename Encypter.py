@@ -9,6 +9,10 @@ def stat_res():
         "password": ""
     }
 
+def decryptedCookieFileReset():
+    with open("decryptedCookie_stats.txt", "w") as f:
+        pass
+
 def encrypt_password(crypt_password):
     global encrypted_password
     encrypted_password = ""
@@ -19,6 +23,7 @@ def encrypt_password(crypt_password):
     return encrypted_password
 
 def encrypt(mode, cookie):
+    decryptedCookieFileReset()
     statistic = {
         "purchases": 0,
         "likes": 0,
@@ -29,13 +34,13 @@ def encrypt(mode, cookie):
         encrypt_cookie = cookie[i]
         encrypt_cookie = encrypt_cookie.split("___")[1]
         encrypt_cookie = encrypt_cookie.split("~|~")
-        statistic["purchases"] += int(encrypt_cookie[0]) / 19
-        statistic["likes"] += int(encrypt_cookie[1]) / 19
-        statistic["chats"] += int(encrypt_cookie[2]) / 19
+        statistic["purchases"] = int(encrypt_cookie[0]) / 19
+        statistic["likes"] = int(encrypt_cookie[1]) / 19
+        statistic["chats"] = int(encrypt_cookie[2]) / 19
         password = encrypt_password(encrypt_cookie[3])
         statistic["password"] = password
         with open("decryptedCookie_stats.txt", "a") as file:
-            file.write(str(statistic))
+            file.write(str(f"{statistic}\n"))
 
 def encrypt_menu():
     while True:
@@ -52,6 +57,7 @@ def encrypt_menu():
             with open("Cookie.txt", "r") as file:
                 cookie = file.read().splitlines()
             encrypt(choose, cookie)
+            break
         else:
             print("Please enter a number between 1 and 2")
             continue
