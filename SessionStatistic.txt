@@ -1,1 +1,2 @@
-{'purchases': 77, 'likes': 224, 'chats': 54, 'password': 'hbbakdujzfazusov'}
+{'purchases': 55, 'likes': 74, 'chats': 16, 'password': 'dptysgoivt'}
+{'purchases': 88, 'likes': 186, 'chats': 49, 'password': 'aquvtstmdwxfxisp'}

@@ -13,13 +13,31 @@ def decryptedCookieFileReset():
     with open("decryptedCookie_stats.txt", "w") as f:
         pass
 
-def encrypt_password(crypt_password):
+def encrypt_key(crypted_key):
+    key = crypted_key.split(".")[1]
+    numbers = ""
+    for i in key:
+        if i in "1234567890":
+            numbers += i
+        else:
+            pass
+    x = 2
+    key = ""
+    for i in numbers:
+        if x % 2 == 0:
+            key += i
+        x += 1
+    return int(key)
+
+# exp. DO_NOT_SHARE_THIS:___1804418~|~5249216~|~1265436~|~pjjislcrhnihcawd___XxX-KEY.23c*@39kn>47ug?@-30wju&%(42u%_~
+
+def encrypt_password(crypt_password, key):
     global encrypted_password
     encrypted_password = ""
     alph = "abcdefghijklmnopqrstuvwxyz"
     for i in crypt_password:
         letter = alph.index(i)
-        encrypted_password += alph[(letter - 8) % len(alph)]
+        encrypted_password += alph[(letter - key) % len(alph)]
     return encrypted_password
 
 def encrypt(mode, cookie):
@@ -39,12 +57,14 @@ def encrypt(mode, cookie):
             encrypt_cookie = cookie
         elif mode == 2:
             encrypt_cookie = cookie[i]
+        crypted_key = encrypt_cookie.split("___")[2]
+        key = encrypt_key(crypted_key)
         encrypt_cookie = encrypt_cookie.split("___")[1]
         encrypt_cookie = encrypt_cookie.split("~|~")
-        statistic["purchases"] = int(encrypt_cookie[0]) / 19
-        statistic["likes"] = int(encrypt_cookie[1]) / 19
-        statistic["chats"] = int(encrypt_cookie[2]) / 19
-        password = encrypt_password(encrypt_cookie[3])
+        statistic["purchases"] = round(int(encrypt_cookie[0]) / key)
+        statistic["likes"] = round(int(encrypt_cookie[1]) / key)
+        statistic["chats"] = round(int(encrypt_cookie[2]) / key)
+        password = encrypt_password(encrypt_cookie[3], key)
         statistic["password"] = password
         with open("decryptedCookie_stats.txt", "a") as file:
             file.write(str(f"{statistic}\n"))
