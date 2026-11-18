@@ -1,4 +1,6 @@
 import random
+from statistics import mode
+from CookieCrypt import crypt_menu
 from CookieCrypt import crypt
 from Encypter import encrypt_menu
 
@@ -21,7 +23,7 @@ def SessionFileReset():
     with open("SessionStatistic.txt", "w") as f:
         pass
 
-def random_activity_gen(generations):
+def random_activity_gen(generations, mode):
     global statistic
     stat_res()
     CookieFileReset()
@@ -36,20 +38,24 @@ def random_activity_gen(generations):
         statistic["password"] = password
         with open("SessionStatistic.txt", "a") as f:
             f.write(str(f"{statistic}\n"))
-        crypt(statistic)
+        if mode == 1:
+            print(statistic)
         stat_res()
         print("Cookie created")
+    if mode == 2:
+        choose = mode
+        crypt_menu(choose)
 
 def activity_gen_menu():
     while True:
         try:
-            choose = int(input("Choose mode\n1.Single generation\n2.Multi active generations"))
+            choose = int(input("Choose mode\n1.Single generation\n2.Multi random active generations + auto convert to cookie"))
         except ValueError:
             print("Enter a number!")
             continue
         if choose == 1:
             amount = 1
-            random_activity_gen(amount)
+            random_activity_gen(amount, mode)
             break
         if choose == 2:
             while True:
@@ -58,28 +64,29 @@ def activity_gen_menu():
                 except ValueError:
                     print("Enter a number!")
                     continue
-                random_activity_gen(amount)
+                random_activity_gen(amount, mode)
                 break
         break
 
 def start():
     while True:
         try:
-            choose = int(input(f"choose mode\n1.Activity gen menu\n2.Crypted stat -> Cookie\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
+            choose = int(input(f"choose mode\n1.Activity gen menu\n2.Menu\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
             if choose == 1:
                 activity_gen_menu()
                 continue
             elif choose == 2:
-                with open("Cookie.txt", "r") as f:
-                    print(f.read())
+                crypt_menu(776)
             elif choose == 3:
                 encrypt_menu()
                 continue
             elif choose == 4:
                 with open("decryptedCookie_stats.txt", "r") as f:
                     print(f.read())
+            elif choose == 5:
+                break
             else:
-                print("choose must be 1 - 6")
+                print("choose must be 1 - 5")
                 continue
         except ValueError:
             print("Enter a number!")

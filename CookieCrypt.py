@@ -1,5 +1,6 @@
 cookie = ""
 
+import ast
 import random
 
 def key_gen():
@@ -17,30 +18,66 @@ def key_gen():
     key = f"XxX-KEY.{key}~"
     return key, number
 
-def crypt(statistic):
+def crypt(statistic, mode):
     global cookie
-    crypted_password = ""
-    password = statistic["password"]
-    del statistic["password"]
-    cookie += "DO_NOT_SHARE_THIS:___"
-    key, number = key_gen()
-    for i in statistic:
-        crypted = statistic[i]
-        crypted *= number
-        cookie += str(crypted)
-        cookie += "~|~"
-    alph = "abcdefghijklmnopqrstuvwxyz"
-    for i in password:
-        letter = alph.index(i)
-        crypted_password += alph[(letter + number) % len(alph)]
-    if password == crypted_password:
+    amount = 0
+    if mode == 1:
+        amount = 1
+    elif mode == 2:
+        with open("SessionStatistic.txt", "r") as file:
+            statistic = file.read().splitlines()
+        amount = len(statistic)
+    for x in range(0, amount):
+        if mode == 2:
+            stat_str = statistic[x]
+            stat = ast.literal_eval(stat_str)
         crypted_password = ""
+        password = stat["password"]
+        del stat["password"]
+        cookie += "DO_NOT_SHARE_THIS:___"
+        key, number = key_gen()
+        for i in stat:
+            crypted = stat[i]
+            crypted *= number
+            cookie += str(crypted)
+            cookie += "~|~"
+        alph = "abcdefghijklmnopqrstuvwxyz"
         for i in password:
             letter = alph.index(i)
-            crypted_password += alph[(letter + (number - 1)) % len(alph)]
-    cookie += str(crypted_password)
-    cookie += "___"
-    cookie += key
-    with open("Cookie.txt", "a") as file:
-        file.write(f"{cookie}\n")
-    cookie = ""
+            crypted_password += alph[(letter + number) % len(alph)]
+        if password == crypted_password:
+            crypted_password = ""
+            for i in password:
+                letter = alph.index(i)
+                crypted_password += alph[(letter + (number - 1)) % len(alph)]
+        cookie += str(crypted_password)
+        cookie += "___"
+        cookie += key
+        if mode == 1:
+            print(cookie)
+        elif mode == 2:
+            with open("Cookie.txt", "a") as file:
+                file.write(f"{cookie}\n")
+        cookie = ""
+
+def crypt_menu(choose):
+    while True:
+        try:
+            choose = int(input(f"Choose encyption mode\n1. String crypt (stats ---> cookie)\n2. Multi file crypt"))
+        except ValueError:
+            print("Please enter a number")
+            continue
+        if choose == 1:
+            statistic = input("Enter a statistic: ")
+            crypt(statistic, choose)
+            break
+        elif choose == 2:
+            with open("SessionStatistic.txt", "r") as file:
+                statistic = file.read().splitlines()
+            crypt(statistic, choose)
+            break
+        elif choose == 776:
+            continue
+        else:
+            print("Please enter a number between 1 and 2")
+            continue
