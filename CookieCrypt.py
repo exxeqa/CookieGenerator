@@ -6,12 +6,15 @@ def key_gen():
     alph = "abcdefghijklmnopqrstuvwxyz"
     spec = "_!@#$%^&*()-{}[]<>?"
     number = random.randint(359, 23494)
+    key = ""
     for i in str(number):
+        key += i
+        key += str(random.randint(0,9))
         for letter in range(random.randint(1, 3)):
-            i += "".join(random.choice(alph))
+            key += "".join(random.choice(alph))
         for symbol in range(random.randint(1, 3)):
-            i += "".join(random.choice(spec))
-    key = f"XxX-KEY.{i}~"
+            key += "".join(random.choice(spec))
+    key = f"XxX-KEY.{key}~"
     return key, number
 
 def crypt(statistic):
