@@ -30,8 +30,15 @@ def encrypt(mode, cookie):
         "chats": 0,
         "password": ""
     }
-    for i in range(0, len(cookie)):
-        encrypt_cookie = cookie[i]
+    if mode == 1:
+        encrypts_amount = 1
+    elif mode == 2:
+        encrypts_amount = len(cookie)
+    for i in range(encrypts_amount):
+        if mode == 1:
+            encrypt_cookie = cookie
+        elif mode == 2:
+            encrypt_cookie = cookie[i]
         encrypt_cookie = encrypt_cookie.split("___")[1]
         encrypt_cookie = encrypt_cookie.split("~|~")
         statistic["purchases"] = int(encrypt_cookie[0]) / 19

@@ -1,0 +1,1 @@
+{'purchases': 52.0, 'likes': 98.0, 'chats': 8.0, 'password': 'juvxqyknqynttpk'}
