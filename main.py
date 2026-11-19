@@ -4,6 +4,9 @@ from CookieCrypt import crypt_menu, crypt
 from Encypter import encrypt_menu
 
 alph = "abcdefghijklmnopqrstuvwxyz"
+topA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+snum = "1234567890"
+symbol_sp = "!@#$^%&*(){}:[]<>?,./|`~-_"
 
 def stat_res():
     global statistic
@@ -22,10 +25,20 @@ def SessionFileReset():
     with open("SessionStatistic.txt", "w") as f:
         pass
 
-def random_activity_gen(generations, mode):
+def session():
     global statistic
-    print(mode)
-    print(generations)
+    stat_res()
+    CookieFileReset()
+    SessionFileReset()
+    statistic["purchases"] += int(input("purchases"))
+    statistic["likes"] += int(input("likes"))
+    statistic["chats"] += int(input("chats"))
+    password = input("password: ")
+    statistic["password"] = password
+    print(statistic)
+
+def random_session_gen(generations, mode):
+    global statistic
     stat_res()
     CookieFileReset()
     SessionFileReset()
@@ -34,28 +47,34 @@ def random_activity_gen(generations, mode):
         statistic["purchases"] += random.randint(0, 95)
         statistic["likes"] += random.randint(0, 250)
         statistic["chats"] += random.randint(0, 55)
-        for i in range(random.randint(8, 16)):
-            password += "".join(random.choice(alph))
+        for i in range(random.randint(12, 18)):
+            l = random.randint(0, 3)
+            if l == 0:
+                password += "".join(random.choice(symbol_sp))
+            elif l == 1:
+                password += "".join(random.choice(alph))
+            elif l == 2:
+                password += "".join(random.choice(topA))
+            else:
+                password += "".join(random.choice(snum))
         statistic["password"] = password
         with open("SessionStatistic.txt", "a") as f:
             f.write(str(f"{statistic}\n"))
         if mode == 1:
             print(statistic)
         stat_res()
-    print(mode)
     if mode == 2:
         crypt(statistic, mode)
 
 def activity_gen_menu():
     while True:
         try:
-            choose = int(input("Choose mode\n1.Single generation\n2.Multi random active generations + auto convert to cookie"))
+            choose = int(input("Choose mode\n1.Single generation, your data\n2.Generate sessions + auto convert to cookie"))
         except ValueError:
             print("Enter a number!")
             continue
         if choose == 1:
-            amount = 1
-            random_activity_gen(amount, choose)
+            session()
             break
         if choose == 2:
             while True:
@@ -64,7 +83,7 @@ def activity_gen_menu():
                 except ValueError:
                     print("Enter a number!")
                     continue
-                random_activity_gen(amount, choose)
+                random_session_gen(amount, choose)
                 break
         break
 

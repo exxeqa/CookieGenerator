@@ -48,10 +48,22 @@ def crypt(statistic, mode):
             cookie += str(crypted)
             cookie += "~|~"
         alph = "abcdefghijklmnopqrstuvwxyz"
-
+        topA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        snum = "1234567890"
+        symbol_sp = "!@#$^%&*(){}:[]<>?,./|`~-_"
         for i in password:
-            letter = alph.index(i)
-            crypted_password += alph[(letter + number) % len(alph)]
+            if i in alph:
+                letter = alph.index(i)
+                crypted_password += alph[(letter + number) % len(alph)]
+            elif i in topA:
+                letter = topA.index(i)
+                crypted_password += topA[(letter + number) % len(topA)]
+            elif i in snum:
+                letter = snum.index(i)
+                crypted_password += snum[(letter + number) % len(snum)]
+            elif i in symbol_sp:
+                letter = symbol_sp.index(i)
+                crypted_password += symbol_sp[(letter + number) % len(symbol_sp)]
         if password == crypted_password:
             crypted_password = ""
             for i in password:
@@ -73,7 +85,7 @@ def crypt(statistic, mode):
 def crypt_menu():
     while True:
         try:
-            choose = int(input(f"Choose encyption mode\n1. String crypt (stats ---> cookie)\n2. Multi file crypt"))
+            choose = int(input(f"Choose crypt mode\n1. String crypt (stats ---> cookie)\n2. Multi file crypt"))
         except ValueError:
             print("Please enter a number")
             continue

@@ -35,9 +35,22 @@ def encrypt_password(crypt_password, key):
     global encrypted_password
     encrypted_password = ""
     alph = "abcdefghijklmnopqrstuvwxyz"
+    topA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    snum = "1234567890"
+    symbol_sp = "!@#$^%&*(){}:[]<>?,./|`~-_"
     for i in crypt_password:
-        letter = alph.index(i)
-        encrypted_password += alph[(letter - key) % len(alph)]
+        if i in alph:
+            letter = alph.index(i)
+            encrypted_password += alph[(letter - key) % len(alph)]
+        elif i in topA:
+            letter = topA.index(i)
+            encrypted_password += topA[(letter - key) % len(topA)]
+        elif i in snum:
+            letter = snum.index(i)
+            encrypted_password += snum[(letter - key) % len(snum)]
+        elif i in symbol_sp:
+            letter = symbol_sp.index(i)
+            encrypted_password += symbol_sp[(letter - key) % len(symbol_sp)]
     return encrypted_password
 
 def encrypt(mode, cookie):
@@ -74,7 +87,7 @@ def encrypt(mode, cookie):
 def encrypt_menu():
     while True:
         try:
-            choose = int(input(f"Choose encyption mode\n1. String encrypt (cookie ---> stats)\n2. Multi encrypt from file"))
+            choose = int(input(f"Choose encryption mode\n1. String encrypt (cookie ---> stats)\n2. Multi encrypt from file"))
         except ValueError:
             print("Please enter a number")
             continue
