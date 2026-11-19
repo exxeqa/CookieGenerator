@@ -18,17 +18,23 @@ def key_gen():
     key = f"XxX-KEY.{key}~"
     return key, number
 
+
+
 def crypt(statistic, mode):
     global cookie
     amount = 0
+
     if mode == 1:
         amount = 1
     elif mode == 2:
         with open("SessionStatistic.txt", "r") as file:
             statistic = file.read().splitlines()
         amount = len(statistic)
+
     for x in range(0, amount):
-        if mode == 2:
+        if mode == 1:
+            stat = ast.literal_eval(statistic)
+        elif mode == 2:
             stat_str = statistic[x]
             stat = ast.literal_eval(stat_str)
         crypted_password = ""
@@ -42,6 +48,7 @@ def crypt(statistic, mode):
             cookie += str(crypted)
             cookie += "~|~"
         alph = "abcdefghijklmnopqrstuvwxyz"
+
         for i in password:
             letter = alph.index(i)
             crypted_password += alph[(letter + number) % len(alph)]
@@ -50,17 +57,20 @@ def crypt(statistic, mode):
             for i in password:
                 letter = alph.index(i)
                 crypted_password += alph[(letter + (number - 1)) % len(alph)]
+
         cookie += str(crypted_password)
         cookie += "___"
         cookie += key
+
         if mode == 1:
             print(cookie)
         elif mode == 2:
             with open("Cookie.txt", "a") as file:
                 file.write(f"{cookie}\n")
+
         cookie = ""
 
-def crypt_menu(choose):
+def crypt_menu():
     while True:
         try:
             choose = int(input(f"Choose encyption mode\n1. String crypt (stats ---> cookie)\n2. Multi file crypt"))
@@ -76,8 +86,6 @@ def crypt_menu(choose):
                 statistic = file.read().splitlines()
             crypt(statistic, choose)
             break
-        elif choose == 776:
-            continue
         else:
             print("Please enter a number between 1 and 2")
             continue

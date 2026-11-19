@@ -1,5 +1,10 @@
-{'purchases': 7, 'likes': 22, 'chats': 41, 'password': 'lowloqov'}
-{'purchases': 56, 'likes': 187, 'chats': 55, 'password': 'syodlrdxxbswxa'}
-{'purchases': 0, 'likes': 34, 'chats': 12, 'password': 'elgzjnnjfsauq'}
-{'purchases': 16, 'likes': 221, 'chats': 54, 'password': 'dblczwqumqstq'}
-{'purchases': 92, 'likes': 236, 'chats': 2, 'password': 'hahsftsfm'}
+{'purchases': 68, 'likes': 141, 'chats': 6, 'password': 'jltlmtgqf'}
+{'purchases': 54, 'likes': 144, 'chats': 15, 'password': 'vpurrclnnhyp'}
+{'purchases': 26, 'likes': 229, 'chats': 36, 'password': 'imeisagmx'}
+{'purchases': 17, 'likes': 110, 'chats': 34, 'password': 'kbojmsotnagp'}
+{'purchases': 89, 'likes': 5, 'chats': 30, 'password': 'zuiyssjx'}
+{'purchases': 54, 'likes': 7, 'chats': 0, 'password': 'dmkcmgtd'}
+{'purchases': 24, 'likes': 233, 'chats': 41, 'password': 'mwbvqfvef'}
+{'purchases': 34, 'likes': 121, 'chats': 6, 'password': 'kgksdfhni'}
+{'purchases': 3, 'likes': 213, 'chats': 8, 'password': 'qtpukdmqijsqan'}
+{'purchases': 60, 'likes': 114, 'chats': 53, 'password': 'anzuwnyj'}

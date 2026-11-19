@@ -68,11 +68,13 @@ def encrypt(mode, cookie):
         statistic["password"] = password
         with open("decryptedCookie_stats.txt", "a") as file:
             file.write(str(f"{statistic}\n"))
+        if mode == 1:
+            print(str(statistic))
 
 def encrypt_menu():
     while True:
         try:
-            choose = int(input(f"Choose encyption mode\n1. String encrypt (cookie ---> stats)\n2. Multi encypt from file"))
+            choose = int(input(f"Choose encyption mode\n1. String encrypt (cookie ---> stats)\n2. Multi encrypt from file"))
         except ValueError:
             print("Please enter a number")
             continue
@@ -86,5 +88,5 @@ def encrypt_menu():
             encrypt(choose, cookie)
             break
         else:
-            print("Please enter a number between 1 and 2")
+            print("Please enter a number between 1 or 2")
             continue

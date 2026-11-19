@@ -1,7 +1,6 @@
 import random
 from statistics import mode
-from CookieCrypt import crypt_menu
-from CookieCrypt import crypt
+from CookieCrypt import crypt_menu, crypt
 from Encypter import encrypt_menu
 
 alph = "abcdefghijklmnopqrstuvwxyz"
@@ -25,6 +24,8 @@ def SessionFileReset():
 
 def random_activity_gen(generations, mode):
     global statistic
+    print(mode)
+    print(generations)
     stat_res()
     CookieFileReset()
     SessionFileReset()
@@ -41,10 +42,9 @@ def random_activity_gen(generations, mode):
         if mode == 1:
             print(statistic)
         stat_res()
-        print("Cookie created")
+    print(mode)
     if mode == 2:
-        choose = mode
-        crypt_menu(choose)
+        crypt(statistic, mode)
 
 def activity_gen_menu():
     while True:
@@ -55,7 +55,7 @@ def activity_gen_menu():
             continue
         if choose == 1:
             amount = 1
-            random_activity_gen(amount, mode)
+            random_activity_gen(amount, choose)
             break
         if choose == 2:
             while True:
@@ -64,19 +64,20 @@ def activity_gen_menu():
                 except ValueError:
                     print("Enter a number!")
                     continue
-                random_activity_gen(amount, mode)
+                random_activity_gen(amount, choose)
                 break
         break
 
 def start():
     while True:
         try:
-            choose = int(input(f"choose mode\n1.Activity gen menu\n2.Menu\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
+            choose = int(input(f"choose mode\n1.Activity gen menu\n2.Crypt menu\n3.Encrypt menu\n4.Encrypt result\n5.Exit"))
             if choose == 1:
                 activity_gen_menu()
                 continue
             elif choose == 2:
-                crypt_menu(776)
+                crypt_menu()
+                continue
             elif choose == 3:
                 encrypt_menu()
                 continue
